@@ -139,7 +139,7 @@ class LimeTabularExplainer(object):
                  discretizer='quartile',
                  sample_around_instance=False,
                  random_state=None,
-                 training_data_stats=None):
+                 training_data_stats=None,MIN=None,MAX=None,parts=None):
         """Init function.
 
         Args:
@@ -218,7 +218,7 @@ class LimeTabularExplainer(object):
                 self.discretizer = QuartileDiscretizer(
                         training_data, self.categorical_features,
                         self.feature_names, labels=training_labels,
-                        random_state=self.random_state)
+                        random_state=self.random_state,MIN,MAX,parts)
             elif discretizer == 'decile':
                 self.discretizer = DecileDiscretizer(
                         training_data, self.categorical_features,
