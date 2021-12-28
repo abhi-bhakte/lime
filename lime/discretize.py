@@ -173,7 +173,7 @@ class StatsDiscretizer(BaseDiscretizer):
 
 
 class QuartileDiscretizer(BaseDiscretizer):
-    def __init__(self, data, categorical_features, feature_names, labels=None, random_state=None,,MIN,MAX,parts):
+    def __init__(self, data, categorical_features, feature_names, labels=None, random_state=None,MIN,MAX,parts):
 
         BaseDiscretizer.__init__(self, data, categorical_features,
                                  feature_names, labels=labels,
