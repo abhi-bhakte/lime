@@ -46,6 +46,7 @@ class BaseDiscretizer():
         self.mins = {}
         self.maxs = {}
         self.random_state = check_random_state(random_state)
+        
 
         # To override when implementing a custom binning
         bins = self.bins(data, labels)
@@ -206,7 +207,7 @@ class DecileDiscretizer(BaseDiscretizer):
         bins = []
         for feature in self.to_discretize:
             qts = np.array(np.percentile(data[:, feature],
-                                         [10, 20, 30, 40, 50, 60, 70, 80, 90]))
+                                         [10, 20, 30, 40, 50]))
             bins.append(qts)
         return bins
 
