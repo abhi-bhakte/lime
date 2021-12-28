@@ -139,7 +139,7 @@ class LimeTabularExplainer(object):
                  discretizer='quartile',
                  sample_around_instance=False,
                  random_state=None,
-                 training_data_stats=None,MIN=None,MAX=None,parts=None):
+                 training_data_stats=None,MIN,MAX,parts):
         """Init function.
 
         Args:
@@ -203,6 +203,9 @@ class LimeTabularExplainer(object):
 
         self.categorical_features = list(categorical_features)
         self.feature_names = list(feature_names)
+        self.MIN=MIN
+        self.MAX=MAX
+        self.parts=parts
 
         self.discretizer = None
         if discretize_continuous and not sp.sparse.issparse(training_data):
@@ -218,7 +221,7 @@ class LimeTabularExplainer(object):
                 self.discretizer = QuartileDiscretizer(
                         training_data, self.categorical_features,
                         self.feature_names, labels=training_labels,
-                        random_state=self.random_state,MIN,MAX,parts)
+                        random_state=self.random_state,self.MIN,self.MAX,self.parts)
             elif discretizer == 'decile':
                 self.discretizer = DecileDiscretizer(
                         training_data, self.categorical_features,
@@ -305,7 +308,7 @@ class LimeTabularExplainer(object):
                          num_samples=5000,
                          distance_metric='euclidean',
                          model_regressor=None,
-                         sampling_method='gaussian'):
+                         sampling_method='gaussian',MIN=None,MAX=None,parts=None):
         """Generates explanations for a prediction.
 
         First, we generate neighborhood data by randomly perturbing features
