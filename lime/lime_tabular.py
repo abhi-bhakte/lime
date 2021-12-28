@@ -29,7 +29,7 @@ class TableDomainMapper(explanation.DomainMapper):
 
     def __init__(self, feature_names, feature_values, scaled_row,
                  categorical_features, discretized_feature_names=None,
-                 feature_indexes=None):
+                 feature_indexes=None,MIN=None,MAX=None,parts=None):
         """Init.
 
         Args:
