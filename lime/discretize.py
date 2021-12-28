@@ -20,7 +20,7 @@ class BaseDiscretizer():
     __metaclass__ = ABCMeta  # abstract class
 
     def __init__(self, data, categorical_features, feature_names, labels=None, random_state=None,
-                 data_stats=None):
+                 data_stats=None,MIN=None,MAX=None,parts=None):
         """Initializer
         Args:
             data: numpy 2d array
@@ -173,16 +173,25 @@ class StatsDiscretizer(BaseDiscretizer):
 
 
 class QuartileDiscretizer(BaseDiscretizer):
-    def __init__(self, data, categorical_features, feature_names, labels=None, random_state=None):
+    def __init__(self, data, categorical_features, feature_names, labels=None, random_state=None,,MIN,MAX,parts):
 
         BaseDiscretizer.__init__(self, data, categorical_features,
                                  feature_names, labels=labels,
-                                 random_state=random_state)
+                                 random_state=random_state,MIN,MAX,parts)
 
-    def bins(self, data, labels):
+    def bins(self, data, labels,MIN,MAX,parts):
         bins = []
         for feature in self.to_discretize:
-            qts = np.array(np.percentile(data[:, feature], [25, 50, 75]))
+            if MIN[feature]==0:
+                qts_1=np.zeros(parts)
+            else:
+                delta_1=MIN[feature]/parts
+                qts_1=np.arange(delta_1,MIN[feature]+(0.1*delta_1),delta_1)
+               
+            delta_2=(1-MAX[feature])/parts
+            qts_2=np.arange(MAX[feature],1,delta_2)
+            
+            qts=np.concatenate((qts_1,qts_2))
             bins.append(qts)
         return bins
 
