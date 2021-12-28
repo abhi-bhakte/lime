@@ -20,7 +20,7 @@ class BaseDiscretizer():
     __metaclass__ = ABCMeta  # abstract class
 
     def __init__(self, data, categorical_features, feature_names, labels=None, random_state=None,
-                 data_stats=None,MIN=None,MAX=None,parts=None):
+                 data_stats=None,MIN,MAX,parts):
         """Initializer
         Args:
             data: numpy 2d array
